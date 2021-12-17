@@ -14,10 +14,10 @@ class QW_WCAG_T14 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const hasIds = element.getElements('[id]');
-    const hasHeaders = element.getElements('[headers]');
+    const hasIds = element.findAll('[id]');
+    const hasHeaders = element.findAll('[headers]');
 
-    if (!window.AccessibilityUtils.isDataTable(element)) {
+    if (!element.isDataTable()) {
       if (hasIds.length > 0 || hasHeaders.length > 0) {
         test.verdict = 'failed';
         test.resultCode = 'F1';
@@ -33,11 +33,11 @@ class QW_WCAG_T14 extends Technique {
         test.verdict = 'inapplicable';
         test.resultCode = 'I3';
       } else {
-        const headersElements = element.getElements('[headers]');
+        const headersElements = element.findAll('[headers]');
         let headersMatchId = true;
         for (const headerElem of headersElements || []) {
           if (headersMatchId) {
-            headersMatchId = doesHeadersMatchId(element, headerElem.getElementAttribute('headers'));
+            headersMatchId = doesHeadersMatchId(element, headerElem.getAttribute('headers'));
           }
         }
 
@@ -57,14 +57,14 @@ class QW_WCAG_T14 extends Technique {
 }
 
 function doesTableHaveDuplicateIds(table: typeof window.qwElement): boolean {
-  const elementsId = table.getElements('[id]');
+  const elementsId = table.findAll('[id]');
   let duplicate = false;
   let counter: number;
 
   for (const elementId of elementsId || []) {
     counter = 0;
     for (const elementId2 of elementsId || []) {
-      if (elementId.getElementAttribute('id') === elementId2.getElementAttribute('id')) {
+      if (elementId.getAttribute('id') === elementId2.getAttribute('id')) {
         counter++;
       }
       if (counter > 1) {
@@ -82,9 +82,9 @@ function doesHeadersMatchId(table: typeof window.qwElement, headers: string | nu
   if (headers && headers.trim() !== '') {
     const splitHeaders = headers.split(' ');
     for (const header of splitHeaders || []) {
-      const matchingIdElem = table.getElement('[id="' + header + '"]');
+      const matchingIdElem = table.find('[id="' + header + '"]');
       if (matchingIdElem !== null) {
-        const matchingIdElemHeaders = matchingIdElem.getElementAttribute('headers');
+        const matchingIdElemHeaders = matchingIdElem.getAttribute('headers');
         if (splitHeaders.length === 1 && !matchingIdElemHeaders) {
           outcome = true;
         } else if (matchingIdElemHeaders !== null) {

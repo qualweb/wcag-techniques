@@ -12,8 +12,8 @@ class QW_WCAG_T28 extends Technique {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    if (element.getElementTagName() === 'style') {
-      const sheet = <any>element.getElementProperty('sheet');
+    if (element.getTagName() === 'style') {
+      const sheet = <any>element.getProperty('sheet');
       for (const rule of sheet.cssRules || []) {
         const style = rule?.style?.cssText;
         if (style) {
@@ -21,7 +21,7 @@ class QW_WCAG_T28 extends Technique {
         }
       }
     } else {
-      const style = <string>element.getElementAttribute('style');
+      const style = <string>element.getAttribute('style');
       this.checkCssProperty(style, element);
     }
   }

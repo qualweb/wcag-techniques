@@ -14,7 +14,7 @@ class QW_WCAG_T7 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const title = element.getElementAttribute('title');
+    const title = element.getAttribute('title');
 
     if (title && title.trim() !== '') {
       test.verdict = 'passed';

@@ -12,11 +12,7 @@ class QW_WCAG_T31 extends Technique {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    if (
-      element.getElementTagName() === 'head' ||
-      element.getElementParent()?.getElementTagName() === 'head' ||
-      !element.hasTextNode()
-    ) {
+    if (element.getTagName() === 'head' || element.getParent()?.getTagName() === 'head' || !element.hasTextNode()) {
       return;
     }
 
@@ -43,7 +39,7 @@ class QW_WCAG_T31 extends Technique {
       if (foundColorProperty && foundBackgroundProperty) {
         parent = null;
       } else {
-        parent = parent.getElementParent();
+        parent = parent.getParent();
       }
     }
 

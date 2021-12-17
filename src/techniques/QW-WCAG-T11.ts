@@ -14,7 +14,7 @@ class QW_WCAG_T11 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const alt = element.getElementAttribute('alt');
+    const alt = element.getAttribute('alt');
 
     if (alt === null) {
       // fails if the element doesn't contain an alt attribute
@@ -25,7 +25,7 @@ class QW_WCAG_T11 extends Technique {
       test.verdict = 'failed';
       test.resultCode = 'F2';
     } else {
-      const text = element.getElementText();
+      const text = element.getText();
 
       if (text?.trim() !== '') {
         // the element contains a non empty alt attribute and a text in his body

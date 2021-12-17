@@ -21,11 +21,11 @@ class QW_WCAG_T21 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const img = element.getElement('img');
-    const aText = element.getElementText();
+    const img = element.find('img');
+    const aText = element.getText();
 
-    if (!((aText !== undefined && aText.trim() !== '') || !img)) {
-      if (window.AccessibilityUtils.getAccessibleName(element)) {
+    if (!((aText && aText.trim() !== '') || !img)) {
+      if (element.getAccessibleName()) {
         test.verdict = 'passed';
         test.resultCode = 'P1';
       } else {

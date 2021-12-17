@@ -16,8 +16,8 @@ class QW_WCAG_T4 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const caption = element.getElementChildTextContent('caption');
-    const summary = <string>element.getElementAttribute('summary');
+    const caption = element.getChildTextContent('caption');
+    const summary = <string>element.getAttribute('summary');
 
     if (!summary.trim().length) {
       test.verdict = 'failed';

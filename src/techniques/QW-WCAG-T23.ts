@@ -14,13 +14,13 @@ class QW_WCAG_T23 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const children = element.getElementChildren();
+    const children = element.getChildren();
     if (children !== null && children.length > 0) {
       const firstFocusableElem = findFirstFocusableElement(element);
       if (firstFocusableElem) {
-        const firstFocusableElemName = firstFocusableElem.getElementTagName();
+        const firstFocusableElemName = firstFocusableElem.getTagName();
         //const firstFocusableElemAttribs = await DomUtils.getElementAttributes(firstFocusableElem);
-        const firstFocusableElemHREF = firstFocusableElem.getElementAttribute('href');
+        const firstFocusableElemHREF = firstFocusableElem.getAttribute('href');
         if (firstFocusableElemName === 'a' && firstFocusableElemHREF && firstFocusableElemHREF.trim()) {
           const url = window.qwPage.getURL();
           const urlConcatWithId = url + '#';
@@ -34,7 +34,7 @@ class QW_WCAG_T23 extends Technique {
             const idSymbol = firstFocusableElemHREF.indexOf('#');
             const idReferenced = firstFocusableElemHREF.substring(idSymbol + 1);
             if (idReferenced.length > 0) {
-              const idElementReferenced = element.getElement('[id="' + idReferenced + '"]');
+              const idElementReferenced = element.find('[id="' + idReferenced + '"]');
               if (idElementReferenced !== null) {
                 if (hasMainElementAsParent(idElementReferenced)) {
                   test.verdict = 'warning';
@@ -77,13 +77,13 @@ class QW_WCAG_T23 extends Technique {
 function findFirstFocusableElement(element: typeof window.qwElement): typeof window.qwElement | undefined {
   let foundFirstFocusableElem = false;
   let firstFocusableElem: typeof window.qwElement | undefined;
-  const children = element.getElementChildren();
+  const children = element.getChildren();
 
   if (children && children.length > 0) {
     let i = 0;
     while (!foundFirstFocusableElem && i < children.length) {
       if (children[i]) {
-        if (window.AccessibilityUtils.isElementFocusable(children[i])) {
+        if (children[i].isFocusable()) {
           firstFocusableElem = children[i];
           foundFirstFocusableElem = true;
         } else {
@@ -103,7 +103,7 @@ function findFirstFocusableElement(element: typeof window.qwElement): typeof win
 
 function hasMainElementAsParent(element: typeof window.qwElement | undefined): boolean {
   if (element) {
-    const pointer = element.getElementSelector();
+    const pointer = element.getSelector();
     return pointer.indexOf('main:') > 0;
   }
 

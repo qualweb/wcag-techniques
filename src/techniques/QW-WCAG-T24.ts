@@ -14,10 +14,10 @@ class QW_WCAG_T24 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const isFocusable = window.AccessibilityUtils.isElementFocusable(element);
+    const isFocusable = element.isFocusable();
 
     if (isFocusable) {
-      const keepsFocus = window.AccessibilityUtils.isFocusableBrowser(element);
+      const keepsFocus = element.isFocused();
       if (keepsFocus) {
         test.verdict = 'passed';
         test.resultCode = 'P1';

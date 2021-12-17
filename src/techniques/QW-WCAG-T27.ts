@@ -14,7 +14,7 @@ class QW_WCAG_T27 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const alignAttribute = element.getElementAttribute('align');
+    const alignAttribute = element.getAttribute('align');
 
     if (alignAttribute) {
       if (alignAttribute.trim().toLowerCase() === 'justify') {

@@ -15,7 +15,7 @@ class QW_WCAG_T17 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
     const insideLabel = this.isInsideLabelElement(element);
-    const type = element.getElementAttribute('type');
+    const type = element.getAttribute('type');
 
     if (insideLabel) {
       if (type && (type === 'radio' || type === 'checkbox')) {
@@ -40,19 +40,19 @@ class QW_WCAG_T17 extends Technique {
       test.addElement(element);
       super.addTestResult(test);
     } else {
-      const id = element.getElementAttribute('id');
+      const id = element.getAttribute('id');
       if (id) {
-        const label = window.qwPage.getElement(`label[for="${id.trim()}"]`);
+        const label = window.qwPage.find(`label[for="${id.trim()}"]`);
         if (label) {
-          if (window.DomUtils.isElementVisible(label)) {
-            const text = label.getElementText();
+          if (label.isVisible()) {
+            const text = label.getText();
             if (text && text.trim() !== '') {
               const ancestor = this.findFirstCommonAncestor(element, label);
               if (ancestor) {
                 const firstFound = this.findFirstInDepth(ancestor, [element, label]);
                 if (firstFound) {
                   if (type && (type === 'radio' || type === 'checkbox')) {
-                    if (firstFound.getElementSelector() === element.getElementSelector()) {
+                    if (firstFound.getSelector() === element.getSelector()) {
                       test.verdict = 'passed';
                       test.resultCode = 'P1';
                     } else {
@@ -60,7 +60,7 @@ class QW_WCAG_T17 extends Technique {
                       test.resultCode = 'F1';
                     }
                   } else {
-                    if (firstFound.getElementSelector() === label.getElementSelector()) {
+                    if (firstFound.getSelector() === label.getSelector()) {
                       test.verdict = 'passed';
                       test.resultCode = 'P1';
                     } else {
@@ -89,14 +89,14 @@ class QW_WCAG_T17 extends Technique {
   private isInsideLabelElement(element: typeof window.qwElement): boolean {
     let labelFound = false;
 
-    let parent = element.getElementParent();
+    let parent = element.getParent();
     while (parent !== null) {
-      if (parent.getElementTagName() === 'label') {
+      if (parent.getTagName() === 'label') {
         labelFound = true;
         break;
       }
 
-      parent = parent.getElementParent();
+      parent = parent.getParent();
     }
 
     return labelFound;
@@ -107,7 +107,7 @@ class QW_WCAG_T17 extends Technique {
 
     let parent: typeof window.qwElement | null = element;
     while (parent !== null) {
-      if (parent.getElementTagName() === 'label') {
+      if (parent.getTagName() === 'label') {
         break;
       }
 
@@ -120,13 +120,14 @@ class QW_WCAG_T17 extends Technique {
           }
         } else {
           const qwElement = <typeof window.qwElement>sibling;
-          if (qwElement.getElementText().trim() !== '') {
+          const text = qwElement.getText();
+          if (text && text.trim() !== '') {
             hasText = true;
           }
         }
       }
 
-      parent = parent.getElementParent();
+      parent = parent.getParent();
     }
 
     return hasText;
@@ -137,7 +138,7 @@ class QW_WCAG_T17 extends Technique {
 
     let parent: typeof window.qwElement | null = element;
     while (parent !== null) {
-      if (parent.getElementTagName() === 'label') {
+      if (parent.getTagName() === 'label') {
         break;
       }
 
@@ -150,13 +151,14 @@ class QW_WCAG_T17 extends Technique {
           }
         } else {
           const qwElement = <typeof window.qwElement>sibling;
-          if (qwElement.getElementText().trim() !== '') {
+          const text = qwElement.getText();
+          if (text && text.trim() !== '') {
             hasText = true;
           }
         }
       }
 
-      parent = parent.getElementParent();
+      parent = parent.getParent();
     }
 
     return hasText;
@@ -166,25 +168,25 @@ class QW_WCAG_T17 extends Technique {
     input: typeof window.qwElement,
     label: typeof window.qwElement
   ): typeof window.qwElement | null {
-    let inputParent = input.getElementParent();
+    let inputParent = input.getParent();
     let ancestor = null;
 
     while (inputParent !== null) {
-      let labelParent = label.getElementParent();
+      let labelParent = label.getParent();
       while (labelParent !== null) {
-        if (inputParent.getElementSelector() === labelParent.getElementSelector()) {
+        if (inputParent.getSelector() === labelParent.getSelector()) {
           ancestor = inputParent;
           break;
         }
 
-        labelParent = labelParent.getElementParent();
+        labelParent = labelParent.getParent();
       }
 
       if (ancestor) {
         break;
       }
 
-      inputParent = inputParent.getElementParent();
+      inputParent = inputParent.getParent();
     }
 
     return ancestor;
@@ -196,9 +198,9 @@ class QW_WCAG_T17 extends Technique {
   ): typeof window.qwElement | null {
     let elementFound: typeof window.qwElement | null = null;
 
-    for (const child of ancestor.getElementChildren()) {
+    for (const child of ancestor.getChildren()) {
       for (const element of elements) {
-        if (child.getElementSelector() === element.getElementSelector()) {
+        if (child.getSelector() === element.getSelector()) {
           elementFound = element;
           break;
         }

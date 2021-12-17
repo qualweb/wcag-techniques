@@ -18,12 +18,12 @@ class QW_WCAG_T12 extends Technique {
     checks['hasCaption'] = false;
     checks['hasTh'] = false;
 
-    if (element.elementHasChildren()) {
-      checks['hasCaption'] = !!element.getElement('caption');
-      checks['hasTh'] = !!element.getElement('th');
+    if (element.hasChildren()) {
+      checks['hasCaption'] = !!element.find('caption');
+      checks['hasTh'] = !!element.find('th');
     }
 
-    const summary = element.getElementAttribute('summary');
+    const summary = element.getAttribute('summary');
 
     if (summary?.trim() !== '') {
       test.verdict = 'failed';

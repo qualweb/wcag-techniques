@@ -14,11 +14,11 @@ class QW_WCAG_T32 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const hasLi = element.getElements('li').length !== 0;
-    const hasDd = element.getElements('dd').length !== 0;
-    const hasDt = element.getElements('dt').length !== 0;
+    const hasLi = element.findAll('li').length !== 0;
+    const hasDd = element.findAll('dd').length !== 0;
+    const hasDt = element.findAll('dt').length !== 0;
 
-    const name = element.getElementTagName();
+    const name = element.getTagName();
 
     if (hasLi && name === 'ul') {
       // fails if the element doesn't contain an alt attribute

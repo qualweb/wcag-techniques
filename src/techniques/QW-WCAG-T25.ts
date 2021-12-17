@@ -14,10 +14,10 @@ class QW_WCAG_T25 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const name = element.getElementTagName();
+    const name = element.getTagName();
 
-    const hasScope = element.elementHasAttribute('scope');
-    const scope = element.getElementAttribute('scope');
+    const hasScope = element.hasAttribute('scope');
+    const scope = element.getAttribute('scope');
 
     if (name === 'th' && !hasScope) {
       test.verdict = 'failed';

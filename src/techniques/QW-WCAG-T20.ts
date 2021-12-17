@@ -15,8 +15,8 @@ class QW_WCAG_T20 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const title = (<string>element.getElementAttribute('title')).trim();
-    const text = element.getElementText().trim();
+    const title = (<string>element.getAttribute('title')).trim();
+    const text = element.getText()?.trim();
 
     if (!title) {
       test.verdict = 'failed';

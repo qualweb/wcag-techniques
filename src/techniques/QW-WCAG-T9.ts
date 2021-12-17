@@ -12,16 +12,16 @@ class QW_WCAG_T9 extends Technique {
 
   @ElementExists
   execute(element: typeof window.qwElement): void {
-    if (window.qwPage.getElements('h1, h2, h3, h4, h5, h6, [role="heading"]').length === 0) {
+    if (window.qwPage.findAll('h1, h2, h3, h4, h5, h6, [role="heading"]').length === 0) {
       return;
     }
 
     let equal = true;
     let complete = true;
     //let errorElem = element;
-    const hasH1 = window.qwPage.getElements('h1').length > 0;
+    const hasH1 = window.qwPage.findAll('h1').length > 0;
     let counter = 0;
-    const htmlList = window.qwPage.getElements('body, body *');
+    const htmlList = window.qwPage.findAll('body, body *');
 
     while (equal && complete && hasH1 && counter < htmlList.length) {
       const elem = htmlList[counter];
@@ -29,8 +29,8 @@ class QW_WCAG_T9 extends Technique {
       const regexp = new RegExp('^h[1-6]$');
       const list = new Array<number>();
 
-      for (const child of elem.getElementChildren() || []) {
-        const name = child.getElementTagName();
+      for (const child of elem.getChildren() || []) {
+        const name = child.getTagName();
         if (name && regexp.test(name)) {
           const split = name.split('h');
           list.push(parseInt(split[1]));

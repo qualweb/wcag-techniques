@@ -14,7 +14,7 @@ class QW_WCAG_T1 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const alt = element.getElementAttribute('alt');
+    const alt = element.getAttribute('alt');
 
     if (!alt || alt.trim() === '') {
       test.verdict = 'failed';

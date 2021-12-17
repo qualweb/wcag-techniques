@@ -1,7 +1,7 @@
 import { WCAGTechnique } from '@qualweb/wcag-techniques';
 import Technique from '../lib/Technique.object';
 import { WCAGTechniqueClass, ElementExists } from '../lib/applicability';
-import { CSSProperties, CSSProperty, MediaProperties } from '@qualweb/qw-element';
+import { CSSProperties, CSSProperty, MediaProperties } from '@qualweb/qw-page';
 import Test from '../lib/Test.object';
 import { Translate } from '@qualweb/locale';
 
@@ -15,7 +15,7 @@ class QW_WCAG_T30 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    if (element.elementHasAttribute('_cssRules')) {
+    if (element.hasAttribute('_cssRules')) {
       const cssRules = element.getCSSRules();
 
       const property = this.findTextDecorationWithBlink(cssRules);
@@ -24,8 +24,8 @@ class QW_WCAG_T30 extends Technique {
         test.verdict = 'failed';
         test.resultCode = 'F1';
         test.elements.push({
-          pointer: element.getElementSelector(),
-          htmlCode: element.getElementHtmlCode(true, true),
+          pointer: element.getSelector(),
+          htmlCode: element.toString(true, true),
           property: {
             name: 'text-decoration',
             value: 'blink'

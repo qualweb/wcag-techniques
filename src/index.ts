@@ -94,7 +94,7 @@ class WCAGTechniques {
   }
 
   private executeTechnique(technique: string, selector: string, report: WCAGTechniquesReport): void {
-    const elements = window.qwPage.getElements(selector);
+    const elements = window.qwPage.findAll(selector);
     if (elements.length > 0) {
       for (const elem of elements || []) {
         try {

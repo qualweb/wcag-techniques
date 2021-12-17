@@ -15,11 +15,11 @@ class QW_WCAG_T18 extends Technique {
     const test = new Test();
 
     // verificar se existe pelo menos um th
-    const has_th = element.getElements('th').length > 0;
+    const has_th = element.findAll('th').length > 0;
     // verificar se existe pelo menos um tr
-    const has_tr = element.getElements('tr').length > 0;
+    const has_tr = element.findAll('tr').length > 0;
     // verificar se existe pelo menos um td
-    const has_td = element.getElements('td').length > 0;
+    const has_td = element.findAll('td').length > 0;
 
     // verificar pelo menos uma ocorrencia de cada elemento
     if (has_td && has_tr && has_th) {

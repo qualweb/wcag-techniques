@@ -29,7 +29,7 @@ class QW_WCAG_T8 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const accessibleName = (<string>window.AccessibilityUtils.getAccessibleName(element)).toLocaleLowerCase();
+    const accessibleName = (<string>element.getAccessibleName()).toLocaleLowerCase();
 
     if (
       !this.pattern4.test(accessibleName) &&

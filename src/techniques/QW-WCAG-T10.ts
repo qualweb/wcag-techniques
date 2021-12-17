@@ -14,8 +14,8 @@ class QW_WCAG_T10 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const images = element.getElements('img');
-    const text = element.getElementText();
+    const images = element.findAll('img');
+    const text = element.getText();
 
     const hasImage = images.length > 0;
     let hasNonEmptyAlt = false;
@@ -24,9 +24,9 @@ class QW_WCAG_T10 extends Technique {
 
     for (const img of images || []) {
       // fails if the element doesn't contain an alt attribute
-      if (img.elementHasAttribute('alt') && !hasNonEmptyAlt && !equalAltText) {
+      if (img.hasAttribute('alt') && !hasNonEmptyAlt && !equalAltText) {
         hasAlt = true;
-        const alt = img.getElementAttribute('alt');
+        const alt = img.getAttribute('alt');
         if (alt !== null) {
           hasNonEmptyAlt = alt.trim() !== '';
           equalAltText = !!text && alt.trim() === text.trim();

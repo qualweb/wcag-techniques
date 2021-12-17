@@ -14,8 +14,8 @@ class QW_WCAG_T2 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const hasChild = element.elementHasChild('caption');
-    const childText = element.getElementChildTextContent('caption');
+    const hasChild = element.hasChild('caption');
+    const childText = element.getChildTextContent('caption');
 
     if (!hasChild || (childText && childText.trim() === '')) {
       test.verdict = 'failed';

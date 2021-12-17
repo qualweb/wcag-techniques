@@ -14,7 +14,7 @@ class QW_WCAG_T19 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const children = element.getElements(`input[type="submit"], input[type="image"], button[type="submit"]`);
+    const children = element.findAll(`input[type="submit"], input[type="image"], button[type="submit"]`);
 
     if (children.length > 0) {
       // the element contains one of the following elements input[type~='submit image'], button[type='submit']

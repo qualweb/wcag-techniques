@@ -14,17 +14,17 @@ class QW_WCAG_T3 extends Technique {
   execute(element: typeof window.qwElement): void {
     const test = new Test();
 
-    const formATT = element.getElementAttribute('form');
+    const formATT = element.getAttribute('form');
 
     let validFormAtt = new Array<typeof window.qwElement>();
 
     if (formATT) {
-      validFormAtt = window.qwPage.getElements(`form[id="${formATT}"]`);
+      validFormAtt = window.qwPage.findAll(`form[id="${formATT}"]`);
     }
 
-    const hasParent = element.elementHasParent('form');
-    const hasChild = element.elementHasChild('legend');
-    const childText = element.getElementChildTextContent('legend');
+    const hasParent = element.hasParent('form');
+    const hasChild = element.hasChild('legend');
+    const childText = element.getChildTextContent('legend');
 
     if (!hasParent && validFormAtt.length === 0) {
       test.verdict = 'failed';
