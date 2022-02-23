@@ -111,15 +111,15 @@ class QW_WCAG_T17 extends Technique {
         break;
       }
 
-      const siblings = parent.getAllNextSiblings();
+      const siblings = parent.nextSiblings();
       for (const sibling of siblings ?? []) {
-        if (typeof sibling === 'string') {
-          const text = <string>sibling;
-          if (text.trim() !== '') {
+        if (sibling.getType() === 'text') {
+          const text = sibling.toQWTextNode().getText();
+          if (text && text.trim() !== '') {
             hasText = true;
           }
-        } else {
-          const qwElement = <typeof window.qwElement>sibling;
+        } else if (sibling.getType() === 'tag') {
+          const qwElement = sibling.toQWElementNode();
           const text = qwElement.getText();
           if (text && text.trim() !== '') {
             hasText = true;
@@ -142,15 +142,15 @@ class QW_WCAG_T17 extends Technique {
         break;
       }
 
-      const siblings = parent.getAllPreviousSiblings();
+      const siblings = parent.previousSiblings();
       for (const sibling of siblings ?? []) {
-        if (typeof sibling === 'string') {
-          const text = <string>sibling;
-          if (text.trim() !== '') {
+        if (sibling.getType() === 'text') {
+          const text = sibling.toQWTextNode().getText();
+          if (text && text.trim() !== '') {
             hasText = true;
           }
-        } else {
-          const qwElement = <typeof window.qwElement>sibling;
+        } else if (sibling.getType() === 'tag') {
+          const qwElement = sibling.toQWElementNode();
           const text = qwElement.getText();
           if (text && text.trim() !== '') {
             hasText = true;
