@@ -1,3 +1,5 @@
+This repository has been archived. QualWeb is now being maintained in a monorepo at https://github.com/qualweb/qualweb
+
 # QualWeb WCAG techniques
 
 Implementation of the [WCAG 2.1 techniques](https://www.w3.org/WAI/WCAG21/Techniques/).
